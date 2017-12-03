@@ -6,8 +6,8 @@ block content
 			if data.events.length			
 				each event in data.events
 					h1=	event.title
-					//- p=	event.location.street1
-					- var  displayLocation = event.location.suburb +','+  event.location.state || ''
+					- var  displayLocation = event.location.suburb +','+  event.location.state
+					- if(displayLocation.indexOf('undefined')!==-1){displayLocation=''}
 					p=  displayLocation
 					- var date = moment(event.datetime).format('MM/DD/YYYY')
 					p=	date
