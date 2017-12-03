@@ -1,0 +1,16 @@
+extends ../layouts/default
+
+block content
+	.container.store-container
+		.store-content
+			if data.events.length			
+				each event in data.events
+					h1=	event.title
+					//- p=	event.location.street1
+					- var  displayLocation = event.location.suburb +','+  event.location.state || ''
+					p=  displayLocation
+					- var date = moment(event.datetime).format('MM/DD/YYYY')
+					p=	date
+					- var time = moment(event.datetime).format('hh:mm a')
+					p= time
+			else
