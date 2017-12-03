@@ -1,0 +1,18 @@
+extends ../layouts/default
+
+block content
+	.container: .row: .col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2.text-center
+		article
+			p: a(href='/events') &larr; back to events
+			
+		h1= data.event.title
+		p !{data.event.description}
+		- var street = data.event.location.street1
+		- var city = data.event.location.suburb
+		- var state= data.event.location.state
+		- if(street==='undefined'||null){street="N/A"}
+		- if(city==='undefined'||null){city=""}
+		- if(state==='undefined'||null){state="N/A"}
+
+		p= street
+		p= city + "," + state

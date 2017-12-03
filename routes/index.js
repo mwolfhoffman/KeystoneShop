@@ -41,6 +41,7 @@ exports = module.exports = function(app) {
 	app.get('/gallery', routes.views.gallery);
 	app.get('/cart', routes.views.cart);
 	app.get('/events', routes.views.events);	
+	app.get('/events/:event', routes.views.event);	
 	app.get('/store', routes.views.products);
 	app.get('/store/:category?', routes.views.products);
 	app.get('/product/:product', routes.views.product);

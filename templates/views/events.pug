@@ -5,7 +5,8 @@ block content
 		.store-content
 			if data.events.length			
 				each event in data.events
-					h1=	event.title
+					h1
+						a(href='/events/' + event.slug)=	event.title
 					- var  displayLocation = event.location.suburb +','+  event.location.state
 					- if(displayLocation.indexOf('undefined')!==-1){displayLocation=''}
 					p=  displayLocation
