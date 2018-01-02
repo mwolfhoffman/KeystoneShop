@@ -23,8 +23,8 @@ keystone.init({
 	'auto update': true,
 	'session': true,
 	'auth': true,
-	'user model': 'User'
-
+	'user model': 'User',
+	'mongo': process.env.MLAB_CONNECTION_STRING
 });
 
 // Load your project's Models
