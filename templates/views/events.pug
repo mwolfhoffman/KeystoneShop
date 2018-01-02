@@ -8,8 +8,8 @@ block content
 					h1
 						a(href='/events/' + event.slug)=	event.title
 					- var  displayLocation = event.location.suburb +','+  event.location.state
-					- if(displayLocation.indexOf('undefined')!==-1){displayLocation=''}
-					p=  displayLocation
+					- if(event.location.suburb===null||event.location.state===null ){displayLocation='Location Not Specified'}
+						p=  displayLocation
 					- var date = moment(event.datetime).format('MM/DD/YYYY')
 					p=	date
 					- var time = moment(event.datetime).format('hh:mm a')

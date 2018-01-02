@@ -10,9 +10,12 @@ block content
 		- var street = data.event.location.street1
 		- var city = data.event.location.suburb
 		- var state= data.event.location.state
-		- if(street==='undefined'||null){street="N/A"}
-		- if(city==='undefined'||null){city=""}
-		- if(state==='undefined'||null){state="N/A"}
+		//- - if(street==='undefined'||null){street="N/A"}
+		//- - if(city==='undefined'||null){city=""}
+		//- - if(state==='undefined'||null){state="N/A"}
 
-		p= street
-		p= city + "," + state
+		if(street===null || city===null|| state===null )
+			p <em>Location Not Specified</em>
+		else	
+			p= street
+			p= city + "," + state
