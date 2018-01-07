@@ -10,6 +10,7 @@ exports = module.exports = function(req, res) {
 	locals.section = 'cart';
 	locals.cartOptions = {
 		stripePublishableKey: keystone.get('stripe publishable key'),
+		stripeSecretKey: keystone.get('stripe secret key'),
 		defaultCountry: keystone.get('store country')
 	}
 	
