@@ -58,6 +58,7 @@ exports = module.exports = function(request, response) {
 				source: stripeToken,
 				description: 'Colovo Shop',
 			}, function(err, charge) {
+				if(err)console.log(err)
 				if (err && err.type === 'StripeCardError') {
 					response.json({ accepted: false, message: 'Payment Declined'})
 					// The card has been declined

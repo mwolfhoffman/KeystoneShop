@@ -209,8 +209,9 @@ class Cart extends Component {
 	}
 
 	checkout() {
+		console.log('checking out!')
 		const StripeHandler = StripeCheckout.configure({
-			key: this.props.stripePublishableKey,
+			key: this.props.stripeSecretKey,
 			locale: 'auto',
 			allowRememberMe: true,
 			token: (token) => {
@@ -219,7 +220,7 @@ class Cart extends Component {
 				console.log(token)
 
 				$.post('/checkout', token, function(response) {
-					console.log(response)
+					console.log('POST TO CHECKOUT =>', response)
 				})
 			}
 		});
