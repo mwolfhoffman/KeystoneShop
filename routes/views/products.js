@@ -2,37 +2,34 @@ var keystone = require('keystone');
 var async = require('async');
 var numeral = require('numeral');
 
-loadCategory = (req, res, cb) => {
-	if (req.params.category) {
-		keystone.list('ProductCategory').model.findOne({ key: res.locals.filters.category }).exec(function (err, result) {
-			res.locals.data.category = result;
-			throw err;
-		});
-	} else {
-		return cb();
-	}
+loadCategory = (req, res) => {
+	return new Promise((resolve, reject) => {
+		if (req.params.category) {
+			keystone.list('ProductCategory').model.findOne({ key: res.locals.filters.category })
+				.exec(function (err, result) {
+					res.locals.data.category = result;
+					if (err) {
+						throw err;
+					}
+				});
+		} else {
+			return resolve(res.locals.data);
+		}
+	})
 }
 
-loadCategories = (req, res, cb) => {
-	keystone.list('ProductCategory').model.find().where('primary', true).sort('name').populate('categories').exec(function (err, results) {
+loadCategories = (req, res) => {
+	return new Promise((resolve, reject) => {
 
-		if (err) {
-			throw err;
-		}
-		res.locals.data.categories = results;
-		return cb();
-		// Load the counts for each category
-		// async.each(res.locals.data.categories, function (category, next) {
-		// 	keystone.list('Product').model.count().where('categories').in([category.id]).exec(function (err, count) {
-		// 		category.productCount = count;
-		// 		return next(err);
-		// 	});
+		keystone.list('ProductCategory').model.find().where('primary', true).sort('name').populate('categories').exec(function (err, results) {
 
-		// }, function (err) {
-		// 	return next(err);
-		// });
-	});
-
+			if (err) {
+				return reject(err);
+			}
+			res.locals.data.categories = results;
+			return resolve(res.locals.data);
+		});
+	})
 };
 
 loadProducts = (req, res) => {
@@ -83,9 +80,11 @@ exports = module.exports = function (req, res) {
 		categories: []
 	};
 
-	loadCategories(req, res, () => {
-		loadCategory(req, res, () => {
-			loadProducts(req, res);
+	loadCategories(req, res)
+		.then((data) => {
+			loadCategory(req, res)
 		})
-	})
+		.then((data) => {
+			loadProducts(req, res);
+		});
 };
