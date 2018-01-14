@@ -4,7 +4,7 @@ var numeral = require('numeral');
 
 loadCategory = (req, res, cb) => {
 	if (req.params.category) {
-		keystone.list('ProductCategory').model.findOne({ key: locals.filters.category }).exec(function (err, result) {
+		keystone.list('ProductCategory').model.findOne({ key: res.locals.filters.category }).exec(function (err, result) {
 			res.locals.data.category = result;
 			throw err;
 		});
