@@ -1,5 +1,5 @@
 var keystone = require('keystone');
-var numeral = require('numeral');
+ var numeral = require('numeral');
 
 exports = module.exports = function (req, res) {
     var locals = res.locals;
